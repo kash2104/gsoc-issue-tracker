@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
 import { apiConnector } from "../utils/apiConnector";
 import redis from "./redisClient";
+import { NextResponse } from "next/server";
 
 //caching function
 interface fetchFunction {
@@ -47,8 +48,10 @@ export async function cache(
 //getting all the organizations
 export async function getAllOrganizations(year: String) {
   if (!year) {
-    toast.error("Please enter year");
-    toast.dismiss();
+    return NextResponse.json({
+      success: false,
+      message: "Please enter year for getting the GSOC organizations",
+    });
   }
 
   const response = await apiConnector(
@@ -60,10 +63,38 @@ export async function getAllOrganizations(year: String) {
   );
 
   if (!response) {
-    toast.error("Error while fetching all organizations");
-    toast.dismiss();
+    return NextResponse.json({
+      success: false,
+      message: "No organizations found for this year",
+    });
+  }
 
-    return;
+  return response.data;
+}
+
+//getting the repos of 1 organization
+export async function organizationRepos(name: String) {
+  if (!name) {
+    return NextResponse.json({
+      success: false,
+      message: "Enter organization name to get the repos",
+    });
+  }
+
+  const response = await apiConnector(
+    "GET",
+    `${process.env.ORGANIZATION_REPO_API}${name}/repos`,
+    null,
+    null,
+    null
+  );
+
+  if (!response) {
+    return NextResponse.json({
+      success: false,
+      message:
+        "No repos found for this organization. Please check the name of the organization",
+    });
   }
 
   return response.data;
