@@ -1,9 +1,9 @@
 import { cache, getAllOrganizations } from "@/app/services/functions";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
+export async function GET(req: NextRequest, { params }) {
   try {
-    const { year } = await req.json();
+    const { year } = params;
 
     if (!year) {
       return NextResponse.json({
@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
 
     const organizationsData = await cache(
       getAllOrganizations,
-      "allOrg",
+      `${year}`,
       3,
       year
     );
