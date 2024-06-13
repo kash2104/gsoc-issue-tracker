@@ -125,3 +125,29 @@ export async function singleRepo(orgName: String, repoName: String) {
 
   return response.data;
 }
+
+export async function singleRepoAllIssues(orgName: String, repoName: String) {
+  if (!repoName || !orgName) {
+    return NextResponse.json({
+      success: false,
+      message: "Repo name && Organization name is required",
+    });
+  }
+
+  const response = await apiConnector(
+    "GET",
+    `${process.env.SINGLE_REPO_ALL_ISSUES_API}${orgName}/${repoName}/issues`,
+    null,
+    null,
+    null
+  );
+
+  if (!response) {
+    return NextResponse.json({
+      success: false,
+      message: "Organization name || repo name is wrong. Please check it",
+    });
+  }
+
+  return response.data;
+}
