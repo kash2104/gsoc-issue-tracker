@@ -39,7 +39,7 @@ export async function cache(
       await new Promise((resolve) =>
         setTimeout(resolve, 1000 * (4 - retryCount))
       );
-      return cache(url, key, retryCount - 1);
+      return cache(url, key, retryCount - 1, ...args);
     }
     throw error;
   }
@@ -94,6 +94,32 @@ export async function organizationRepos(name: String) {
       success: false,
       message:
         "No repos found for this organization. Please check the name of the organization",
+    });
+  }
+
+  return response.data;
+}
+
+export async function singleRepo(orgName: String, repoName: String) {
+  if (!repoName || !orgName) {
+    return NextResponse.json({
+      success: false,
+      message: "Repo name as well as Organization name is required",
+    });
+  }
+
+  const response = await apiConnector(
+    "GET",
+    `${process.env.GET_SINGLE_REPO_API}${orgName}/${repoName}`,
+    null,
+    null,
+    null
+  );
+
+  if (!response) {
+    return NextResponse.json({
+      success: false,
+      message: "Organization name or repo name is wrong. Please check it",
     });
   }
 
