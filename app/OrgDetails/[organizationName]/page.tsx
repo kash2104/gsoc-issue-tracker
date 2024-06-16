@@ -78,7 +78,7 @@ export default function OrgDetails() {
               <RepoCard
                 name={repo.name}
                 description={repo.description}
-                link={`https://github.com/${organizationName}/${repo.name}/issues?q=is%3Aissue+is%3Aopen+no%3Aassignee`}
+                link={`/OrgDetails/${organizationName}/${repo.name}/issues`}
                 issues={repo.open_issues_count}
                 createdAt={repo.created_at}
               />
