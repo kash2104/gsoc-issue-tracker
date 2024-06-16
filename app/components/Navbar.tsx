@@ -5,7 +5,7 @@ import Link from "next/link";
 type NavbarProps = {
   year: string;
   setYear: Function;
-  setSearchQuery : Function;
+  setSearchQuery: Function;
 };
 
 const Navbar = ({ year, setYear, setSearchQuery }: NavbarProps) => {
@@ -17,7 +17,7 @@ const Navbar = ({ year, setYear, setSearchQuery }: NavbarProps) => {
         </div>
 
         <div className="my-4">
-          <Searchbar  setSearchQuery={setSearchQuery}/>
+          <Searchbar setSearchQuery={setSearchQuery} />
         </div>
 
         <div className="flex flex-col gap-2 items-start">
@@ -40,18 +40,19 @@ const Navbar = ({ year, setYear, setSearchQuery }: NavbarProps) => {
         </div>
       </div>
 
-      <footer className="text-sm text-gray-600 mt-4">
-        Made by{" "}
+      <footer className="text-lg text-gray-600 mt-4">
+        Made by
+        <br />
         <Link
-          href="https://github.com/kash2104"
+          href="https://www.linkedin.com/in/kavish-parikh"
           target="blank"
-          className=" text-blue-600"
+          className=" text-blue-600 ml-4"
         >
           Kavish
         </Link>
         {" and "}
         <Link
-          href="https://github.com/Tirthraj-Raval"
+          href="linkedin.com/in/tirthraj-raval-773422263"
           target="blank"
           className=" text-blue-600"
         >

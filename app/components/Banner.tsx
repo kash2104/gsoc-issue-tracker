@@ -54,7 +54,7 @@ const Banner = ({
         </div>
       </div>
       <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 mb-2 text-2xl font-bold">
-        Repos: {repos}
+        Issues found in {repos} repositories
       </div>
     </div>
   );
