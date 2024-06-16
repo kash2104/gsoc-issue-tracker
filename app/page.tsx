@@ -19,6 +19,8 @@ export default function Home() {
     typeof window !== "undefined" ? localStorage.getItem("selectedyear") : null;
 
   const [year, setYear] = useState<string>(selectedYear || currentYear.toString());
+
+  
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 9;
 
@@ -108,6 +110,7 @@ export default function Home() {
           ) : filteredData.length > 0 ? (
             currentItems.map((org: any, index: number) => (
               <div key={index} className="h-full">
+
                 <OrgCard org={org} />
               </div>
             ))
@@ -117,9 +120,6 @@ export default function Home() {
         </div>
 
         {/* Pagination */}
-        {!loading && filteredData.length === 0 && (
-          <p className="text-center mb-6">No Organizations found</p>
-        )}
         {!loading && filteredData.length > 0 && (
           <div className="flex justify-center my-4">
             {currentPage > 1 && (
