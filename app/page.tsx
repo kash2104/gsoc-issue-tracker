@@ -18,9 +18,10 @@ export default function Home() {
   const selectedYear =
     typeof window !== "undefined" ? localStorage.getItem("selectedyear") : null;
 
-  const [year, setYear] = useState<string>(selectedYear || currentYear.toString());
+  const [year, setYear] = useState<string>(
+    selectedYear || currentYear.toString()
+  );
 
-  
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 9;
 
@@ -110,7 +111,6 @@ export default function Home() {
           ) : filteredData.length > 0 ? (
             currentItems.map((org: any, index: number) => (
               <div key={index} className="h-full">
-
                 <OrgCard org={org} />
               </div>
             ))
