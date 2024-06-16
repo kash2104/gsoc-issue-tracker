@@ -5,9 +5,10 @@ import Link from "next/link";
 type NavbarProps = {
   year: string;
   setYear: Function;
+  setSearchQuery : Function;
 };
 
-const Navbar = ({ year, setYear }: NavbarProps) => {
+const Navbar = ({ year, setYear, setSearchQuery }: NavbarProps) => {
   return (
     <div className="fixed left-0 top-0 h-full w-[18%] bg-gray-100 shadow-md p-4 rounded-lg flex flex-col justify-between">
       <div>
@@ -16,7 +17,7 @@ const Navbar = ({ year, setYear }: NavbarProps) => {
         </div>
 
         <div className="my-4">
-          <Searchbar />
+          <Searchbar  setSearchQuery={setSearchQuery}/>
         </div>
 
         <div className="flex flex-col gap-2 items-start">

@@ -1,6 +1,10 @@
 import React from "react";
 
-const Searchbar = () => {
+type SearchbarProps = {
+  setSearchQuery: Function; // Prop to set the search query in Home component
+};
+
+const Searchbar = ({ setSearchQuery }: SearchbarProps) => {
   return (
     <div>
       <input
@@ -8,7 +12,7 @@ const Searchbar = () => {
         placeholder="Search for an organization"
         className="p-2 border border-gray-300 rounded-lg"
         onChange={(e) => {
-          e.target.value;
+          setSearchQuery(e.target.value); // Update search query state on input change
         }}
       />
     </div>
