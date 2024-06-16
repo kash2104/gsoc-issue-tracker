@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Chip from "./Chip";
 import Link from "next/link";
@@ -17,9 +15,10 @@ const OrgCard = ({ org }: any) => {
 
     return name;
   };
+
   return (
-    <div className="bg-white border-2 border-double border-gray-600 shadow-lg rounded-lg p-4 flex flex-col gap-2">
-      <div className="flex justify-center items-center -mb-2">
+    <div className="bg-white border-2 border-double border-gray-600 shadow-lg rounded-lg p-4 h-full flex flex-col">
+      <div className="flex justify-center items-center mb-4">
         <img
           src={org.image_url}
           alt={org.name}
@@ -28,17 +27,17 @@ const OrgCard = ({ org }: any) => {
         />
       </div>
 
-      <div className="text-center">
+      <div className="text-center flex-1">
         <h2 className="text-xl font-semibold text-gray-800">{org.name}</h2>
         <p className="text-gray-600 mt-2 line-clamp-3">{org.description}</p>
       </div>
 
-      <div>
+      <div className="mt-2">
         <h3 className="text-lg font-semibold text-gray-800">Category</h3>
         <p className="text-gray-600">{org.category}</p>
       </div>
 
-      <div>
+      <div className="mt-2">
         <h3 className="text-lg font-semibold text-gray-800">Technologies</h3>
         <div className="flex flex-wrap gap-2 mt-2">
           {org.technologies.map((technology: string, index: number) => (
@@ -47,7 +46,7 @@ const OrgCard = ({ org }: any) => {
         </div>
       </div>
 
-      <div>
+      <div className="mt-2">
         <h3 className="text-lg font-semibold text-gray-800">Topics</h3>
         <div className="flex flex-wrap gap-2 mt-2">
           {org.topics.map((topic: string, index: number) => (
@@ -58,7 +57,7 @@ const OrgCard = ({ org }: any) => {
 
       <div className="mt-4 text-center">
         <Link href={`/OrgDetails/${extractOrgNameFromUrl(org.url)}`}>
-          <p className="inline-block bg-blue-500 text-white py-2 px-4 rounded-md shadow hover:bg-blue-600 transition duration-200">
+          <p className="inline-block bg-blue-500 text-white py-2 px-4 rounded-md shadow hover:bg-blue-600 transition duration-200 cursor-pointer">
             View Details
           </p>
         </Link>
