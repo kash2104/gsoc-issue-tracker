@@ -67,6 +67,7 @@ export default function Home() {
 
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top of the page
   };
 
   const displayPages = () => {
@@ -110,7 +111,6 @@ export default function Home() {
           ) : filteredData.length > 0 ? (
             currentItems.map((org: any, index: number) => (
               <div key={index} className="h-full">
-
                 <OrgCard org={org} />
               </div>
             ))
