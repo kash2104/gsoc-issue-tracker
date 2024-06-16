@@ -79,7 +79,7 @@ export default function IssueDetails() {
       <div className="flex flex-col items-center justify-center w-full h-50 bg-blue-200 shadow-md p-6">
         <h1 className="text-4xl font-bold text-gray-800 mb-2">{repoName}</h1>
         <p className="text-lg text-gray-600">
-          Total Unassigned Issues: {currentIssues.length}
+          Total Unassigned Issues: {issues.length}
         </p>
       </div>
 
