@@ -30,7 +30,7 @@ const RepoCard = ({
 
       <div>
         <Link href={link} target="blank">
-          <p className="text-blue-500">Go To Issues</p>
+          <p className="text-blue-500">View All Unassigned</p>
         </Link>
       </div>
     </div>

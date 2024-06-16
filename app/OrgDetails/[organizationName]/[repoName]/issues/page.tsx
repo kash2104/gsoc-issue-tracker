@@ -25,7 +25,7 @@ export default function IssueDetails() {
   const [issues, setIssues] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 9;
 
   useEffect(() => {
     const fetchIssues = async () => {
@@ -62,7 +62,10 @@ export default function IssueDetails() {
   };
 
   if (loading) {
-    return <div className="spinner"></div>;
+    return <div className="flex flex-col items-center gap-2 justify-center mt-[20%]">
+    <div className="spinner"></div>
+    <div>Loading....</div>
+  </div>
   }
 
   return (
@@ -123,7 +126,7 @@ export default function IssueDetails() {
         ))}
       </MDBRow>
 
-      <MDBPagination className="mb-4">
+      <MDBPagination className="mb-4 flex item-center justify-center mt-8">
         <MDBPaginationItem disabled={currentPage === 1}>
           <MDBPaginationLink onClick={() => handlePageChange(currentPage - 1)} aria-disabled={currentPage === 1}>
             Previous
