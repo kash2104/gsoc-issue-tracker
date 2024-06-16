@@ -3,6 +3,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 
+import Banner from "@/app/components/Banner";
+import RepoCard from "@/app/components/RepoCard";
+
 export default function OrgDetails() {
   const organizationName = useParams().organizationName;
   const [orgRepos, setOrgRepos] = useState<any[]>([]);
@@ -16,16 +19,22 @@ export default function OrgDetails() {
     const fetchOrgRepos = async () => {
       try {
         const response = await fetch(`/api/repos/${organizationName}`);
-        const newResponse = await fetch(`https://api.github.com/users/${organizationName}`);
+
+        const newResponse = await fetch(
+          `https://api.github.com/users/${organizationName}`
+        );
         if (!response.ok || !newResponse.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error("Network response was not ok");
+
         }
         const data = await response.json();
         const newData = await newResponse.json();
         console.log(data);
         setOwnerDetails(data.repos[0].owner);
         setnewOwnerDetails(newData);
-        setOrgImage(data.repos[0].owner.avatar_url)
+
+        setOrgImage(data.repos[0].owner.avatar_url);
+
         setOrgRepos(data.repos);
       } catch (error) {
         console.error("Fetch error:", error);
@@ -38,47 +47,45 @@ export default function OrgDetails() {
   }, [organizationName]);
 
   if (loading) {
-    return <div className="spinner"></div>;
+    return (
+      <div className="flex flex-col items-center gap-2 justify-center mt-[20%]">
+        <div className="spinner"></div>
+        <div>Loading....</div>
+      </div>
+    );
   }
+
+  const reposWithOpenIssues = orgRepos.filter(
+    (repo) => repo.open_issues_count > 0
+  );
 
   return (
     <div>
-      <img src={orgImage} alt={`${organizationName}'s avatar`} style={{ width: '50px', height: '50px' }} />
-      <h1>{organizationName}</h1>
-      {/* Owner Details */}
-      <h4>Owner Details Section</h4>
-            <p><strong>Owner Name:</strong> {ownerDetails.login}</p>
-            <p><strong>Owner ID:</strong> {ownerDetails.id}</p>
-            <p style={{color : "blue"}}> <a href={newOwnerDetails.blog}> {organizationName} Official Website </a></p>
-            <p><a href={ownerDetails.html_url} target="_blank" rel="noopener noreferrer" style={{color : "blue"}}>Owner Profile</a></p>
-            <p><strong>Owner Type:</strong> {newOwnerDetails.type}</p> 
-            <p><strong>Owner Site Admin:</strong> {newOwnerDetails.site_admin ? "Yes" : "No"}</p>
-            <p><a href={`https://github.com/orgs/${organizationName}/followers`}>{organizationName} Followers : {newOwnerDetails.followers}</a></p> 
-            <p><a href={`https://github.com/orgs/${organizationName}/repositories`}> Public Repositories : {newOwnerDetails.public_repos}</a></p>
-            <p>Twitter username : {newOwnerDetails.twitter_username || "No username registered"}</p>
-            <p>Contact Email : {newOwnerDetails.email}</p>
-            <p>Location : {newOwnerDetails.location || "No Location Registered"}</p>
 
-            <br /><br />
-      <ul>
-        {orgRepos.map((repo) => (
-          <div key={repo.id}>
+      <Banner
+        image={orgImage}
+        name={organizationName}
+        website={newOwnerDetails.blog ?? "No website found!!"}
+        followers={newOwnerDetails.followers}
+        email={newOwnerDetails.email}
+        repos={reposWithOpenIssues.length}
+      />
 
-            <p>Repo Name : <span style={{color : "chocolate"}}><a href={repo.html_url} target="_blank" rel="noopener noreferrer">{repo.name}</a></span></p>
-            <p>{repo.full_name}</p>
-            <p>{repo.description}</p>
-            <p style={{color : "blue"}}><a href={repo.html_url} target="_blank" rel="noopener noreferrer">GitHub Repo url</a></p>
-            <p>Created at : {repo.created_at}</p>
-            <p>Updated at : {repo.updated_at}</p>
-            <p>Pushed at : {repo.pushed_at}</p>
-            <p>Issues Open : {repo.open_issues_count}</p>
-            <p>Colaborators : <a href={`https://github.com/${repo.name}/graphs/contributors`}></a></p>
-            <p style={{color : "blue"}}><a href={`https://github.com/${organizationName}/${repo.name}/issues?q=is%3Aissue+is%3Aopen+no%3Aassignee`}>Open Issues Assigned to Nobody</a></p>
-            <p style={{color : "blue"}}><a href={`/OrgDetails/${organizationName}/${repo.name}/issues`} >View the Unassigned Issues</a></p>
-            <br />
-          </div>
-        ))}
-      </ul>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
+        {orgRepos.length !== 0 &&
+          reposWithOpenIssues.map((repo) => (
+            <div key={repo.id}>
+              <RepoCard
+                name={repo.name}
+                description={repo.description}
+                link={`https://github.com/${organizationName}/${repo.name}/issues?q=is%3Aissue+is%3Aopen+no%3Aassignee`}
+                issues={repo.open_issues_count}
+                createdAt={repo.created_at}
+              />
+            </div>
+          ))}
+      </div>
+
     </div>
   );
 }
