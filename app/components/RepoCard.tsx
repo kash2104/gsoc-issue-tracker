@@ -17,7 +17,7 @@ const RepoCard = ({
   createdAt,
 }: RepoCardProps) => {
   return (
-    <div className="flex flex-col p-4 bg-gray-100 rounded-lg shadow-md border border-gray-200">
+    <div className="flex flex-col h-full p-4 bg-gray-100 rounded-lg shadow-md border border-gray-200">
       <p className="text-gray-500 text-sm mb-2">
         Created At: {createdAt.split("T")[0]}
       </p>

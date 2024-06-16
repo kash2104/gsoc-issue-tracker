@@ -11,16 +11,16 @@ export default function Home() {
   const [organizationData, setOrganizationData] = useState<any[]>([]);
   const [filteredData, setFilteredData] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(true); // Start with loading true
+  const [loading, setLoading] = useState<boolean>(true);
 
   const date = new Date();
   const currentYear = date.getFullYear();
   const selectedYear =
     typeof window !== "undefined" ? localStorage.getItem("selectedyear") : null;
 
-  const [year, setYear] = useState<string>(
-    selectedYear || currentYear.toString()
-  );
+  const [year, setYear] = useState<string>(selectedYear || currentYear.toString());
+
+  
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 9;
 
@@ -109,7 +109,8 @@ export default function Home() {
             </div>
           ) : filteredData.length > 0 ? (
             currentItems.map((org: any, index: number) => (
-              <div key={index} className="h-max">
+              <div key={index} className="h-full">
+
                 <OrgCard org={org} />
               </div>
             ))
@@ -119,7 +120,6 @@ export default function Home() {
         </div>
 
         {/* Pagination */}
-
         {!loading && filteredData.length > 0 && (
           <div className="flex justify-center my-4">
             {currentPage > 1 && (
