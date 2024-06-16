@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
+
 import Banner from "@/app/components/Banner";
 import RepoCard from "@/app/components/RepoCard";
 
@@ -18,18 +19,22 @@ export default function OrgDetails() {
     const fetchOrgRepos = async () => {
       try {
         const response = await fetch(`/api/repos/${organizationName}`);
+
         const newResponse = await fetch(
           `https://api.github.com/users/${organizationName}`
         );
         if (!response.ok || !newResponse.ok) {
           throw new Error("Network response was not ok");
+
         }
         const data = await response.json();
         const newData = await newResponse.json();
         console.log(data);
         setOwnerDetails(data.repos[0].owner);
         setnewOwnerDetails(newData);
+
         setOrgImage(data.repos[0].owner.avatar_url);
+
         setOrgRepos(data.repos);
       } catch (error) {
         console.error("Fetch error:", error);
@@ -56,6 +61,7 @@ export default function OrgDetails() {
 
   return (
     <div>
+
       <Banner
         image={orgImage}
         name={organizationName}
@@ -79,6 +85,7 @@ export default function OrgDetails() {
             </div>
           ))}
       </div>
+
     </div>
   );
 }
