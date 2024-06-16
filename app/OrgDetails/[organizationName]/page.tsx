@@ -57,7 +57,13 @@ export default function OrgDetails() {
     (repo) => repo.open_issues_count > 0
   );
 
-  return (
+  return newOwnerDetails === null ? (
+    <div className="grid col-span-3">
+      <div className="flex flex-col items-center gap-2 justify-center mt-[20%]">
+        <p className="text-2xl">No information available</p>
+      </div>
+    </div>
+  ) : (
     <div>
       <Banner
         image={orgImage}
