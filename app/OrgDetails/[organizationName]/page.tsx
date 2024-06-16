@@ -25,11 +25,9 @@ export default function OrgDetails() {
         );
         if (!response.ok || !newResponse.ok) {
           throw new Error("Network response was not ok");
-
         }
         const data = await response.json();
         const newData = await newResponse.json();
-        console.log(data);
         setOwnerDetails(data.repos[0].owner);
         setnewOwnerDetails(newData);
 
@@ -61,7 +59,6 @@ export default function OrgDetails() {
 
   return (
     <div>
-
       <Banner
         image={orgImage}
         name={organizationName}
@@ -85,7 +82,6 @@ export default function OrgDetails() {
             </div>
           ))}
       </div>
-
     </div>
   );
 }
