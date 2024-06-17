@@ -13,14 +13,17 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
 
+  const [techSearchQuery, setTechSearchQuery] = useState<string>("");
+
   const date = new Date();
   const currentYear = date.getFullYear();
   const selectedYear =
     typeof window !== "undefined" ? localStorage.getItem("selectedyear") : null;
 
-  const [year, setYear] = useState<string>(selectedYear || currentYear.toString());
+  const [year, setYear] = useState<string>(
+    selectedYear || currentYear.toString()
+  );
 
-  
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 9;
 
@@ -46,12 +49,20 @@ export default function Home() {
 
   useEffect(() => {
     // Filter organizationData based on searchQuery
-    const filteredOrgs = organizationData.filter((org) =>
-      org.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    const filteredOrgs = organizationData.filter((org) => {
+      const matchesName = org.name
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+      const matchesTech =
+        techSearchQuery === "" ||
+        org.technologies.some((tech: string) =>
+          tech.toLowerCase().includes(techSearchQuery.toLowerCase())
+        );
+      return matchesName && matchesTech;
+    });
     setFilteredData(filteredOrgs);
     setCurrentPage(1); // Reset currentPage when searchQuery changes
-  }, [searchQuery, organizationData]);
+  }, [searchQuery, organizationData, techSearchQuery]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -67,7 +78,7 @@ export default function Home() {
 
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
-    window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top of the page
+    window.scrollTo({ top: 0, behavior: "smooth" }); // Scroll to top of the page
   };
 
   const displayPages = () => {
@@ -92,7 +103,14 @@ export default function Home() {
 
   return (
     <div className="flex">
-      <Navbar year={year} setYear={setYear} setSearchQuery={setSearchQuery} />
+      <Navbar
+        year={year}
+        setYear={setYear}
+        setSearchQuery={setSearchQuery}
+        organizationData={organizationData}
+        setTechSearchQuery={setTechSearchQuery}
+        techSet={new Set(organizationData.flatMap((org) => org.technologies))}
+      />
       <div className="flex-grow p-4 overflow-y-auto ml-[18%]">
         <h1 className="text-center my-4">{`All ${year} Organizations are listed below`}</h1>
 

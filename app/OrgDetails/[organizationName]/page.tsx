@@ -61,7 +61,9 @@ export default function OrgDetails() {
     <div className="grid col-span-3">
       <div className="flex flex-col items-center gap-2 justify-center mt-[20%]">
         <p className="text-2xl">No information available</p>
-        <p className="text-lg">Please add proper github username of organization in parameter</p>
+        <p className="text-lg">
+          Please add proper github username of organization in parameter
+        </p>
       </div>
     </div>
   ) : (
