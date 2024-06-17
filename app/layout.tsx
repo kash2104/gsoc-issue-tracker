@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "GSOC Organizations Tracker",
+  title: "GSOC Issues Tracker",
   description: "Track all the organizations participating in GSOC over the years. Moreoever, get the list of repositories of the organization and the details of the repository. Also get the list of unassigned issues of the repository.",
 };
 
