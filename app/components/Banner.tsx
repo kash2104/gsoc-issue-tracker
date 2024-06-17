@@ -27,8 +27,8 @@ const Banner = ({
           {website === "No website found!!" ? (
             <p className="text-lg text-white">No website found!!</p>
           ) : (
-            <Link href={website} target="_blank">
-              <p className="text-lg text-white transition-all duration-200 hover:text-black">
+            <Link href={website} target="_blank" className=" no-underline">
+              <p className="text-lg text-white transition-all duration-200 hover:text-black ">
                 {website}
               </p>
             </Link>
@@ -36,7 +36,7 @@ const Banner = ({
 
           <p className="text-lg">Followers: {followers}</p>
           <div className="flex gap-4">
-            <Link href={`mailto:${email}`}>
+            <Link href={`mailto:${email}`} className=" no-underline">
               <p className="flex items-center text-lg text-white transition-all duration-200 hover:text-black">
                 <BiEnvelope className="text-2xl mr-2" />
                 Email
