@@ -8,6 +8,8 @@
 
 The GSoC Issue Tracker is a web application designed to streamline the process of tracking and managing issues for Google Summer of Code (GSoC) organizations and their repositories. It provides a centralized platform to view, filter, and navigate through issues across different projects, helping mentors and students stay organized and efficient.
 
+Take a look at live website here : [GSOC Issue Tracker](https://gsoc-issues-tracker.vercel.app/)
+
 ## Features
 
 - **Organization Listing**: View all participating GSoC organizations.
@@ -95,31 +97,6 @@ The GSoC Issue Tracker is a web application designed to streamline the process o
 Ensure you have set up Redis and configured the environment variables properly. Update your `redisClient.ts` to use Redis.
 
 
-## Deployment
-
-### Vercel
-
-To deploy the application on Vercel:
-
-1. **Login to Vercel:**
-
-    ```bash
-    vercel login
-    ```
-
-2. **Deploy:**
-
-    ```bash
-    vercel
-    ```
-
-    Follow the prompts to complete the deployment.
-
-
-## Contributing
-
-Contributions are welcome! Please read the [contributing guidelines](CONTRIBUTING.md) for more information.
-
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -132,10 +109,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Next.js
 - Vercel
 - Redis
-
-## Website
-
-[GSOC Issue Tracker](your_website_link)
 
 
 ---
