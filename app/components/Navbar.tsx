@@ -52,7 +52,7 @@ const Navbar = ({ year, setYear, setSearchQuery }: NavbarProps) => {
         </Link>
         {" and "}
         <Link
-          href="linkedin.com/in/tirthraj-raval-773422263"
+          href="https://www.linkedin.com/in/tirthraj-raval-773422263"
           target="blank"
           className=" text-blue-600"
         >
