@@ -10,7 +10,7 @@ const Searchbar = ({ setSearchQuery }: SearchbarProps) => {
       <input
         type="text"
         placeholder="Search for an organization"
-        className="p-2 border border-gray-300 rounded-lg"
+        className="p-2 border border-gray-300 rounded-lg focus:outline-yellow-300"
         onChange={(e) => {
           setSearchQuery(e.target.value); // Update search query state on input change
         }}
