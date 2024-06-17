@@ -68,12 +68,12 @@ const Navbar = ({
       </div>
 
       <footer className="text-lg text-gray-600 mt-4">
-        Made by
+        Developed by
         <br />
         <Link
           href="https://www.linkedin.com/in/kavish-parikh"
           target="blank"
-          className=" text-blue-600 ml-4"
+          className=" text-blue-600"
         >
           Kavish
         </Link>
