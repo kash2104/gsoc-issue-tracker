@@ -1,33 +1,43 @@
 import toast from "react-hot-toast";
 import { apiConnector } from "../utils/apiConnector";
-import redis from "./redisClient";
+import client from "./redisClient";
 import { NextResponse } from "next/server";
 
-//caching function
-interface fetchFunction {
+// Caching function
+interface FetchFunction {
   (...args: any[]): Promise<any>;
 }
 
 export async function cache(
-  url: fetchFunction,
+  url: FetchFunction,
   key: string,
   retryCount: number,
   ...args: any[]
 ) {
   try {
-    //check if the data is available in redis
-    const cachedData = await redis.get(key);
+    if (!client.isOpen) {
+      await client.connect();
+    }
+
+    // Check if the data is available in redis
+    const cachedData = await client.get(key);
 
     if (cachedData) {
       console.log("Cached data from redis");
       return JSON.parse(cachedData);
     }
 
-    //if data is not available in redis
+    // If data is not available in redis
     const data = await url(...args);
 
-    //storing the data in redis for future extraction
-    await redis.setex(key, 7200, JSON.stringify(data));
+    // Store the data in redis for future extraction
+    await client.set(key, JSON.stringify(data));
+
+    // Optionally, you can add expiration logic in your custom redis client
+    // For example, using setTimeout to set expiration after a certain time
+    setTimeout(() => {
+      client.del(key); // Remove key after expiration time
+    }, 7200 * 1000); // 7200 seconds = 2 hours
 
     return data;
   } catch (error: any) {
@@ -42,11 +52,15 @@ export async function cache(
       return cache(url, key, retryCount - 1, ...args);
     }
     throw error;
+  } finally {
+    if (client.isOpen) {
+      await client.disconnect();
+    }
   }
 }
 
-//getting all the organizations
-export async function getAllOrganizations(year: String) {
+// Getting all the organizations
+export async function getAllOrganizations(year: string) {
   if (!year) {
     return NextResponse.json({
       success: false,
@@ -72,8 +86,8 @@ export async function getAllOrganizations(year: String) {
   return response.data;
 }
 
-//getting the repos of 1 organization
-export async function organizationRepos(name: String) {
+// Getting the repos of 1 organization
+export async function organizationRepos(name: string) {
   if (!name) {
     return NextResponse.json({
       success: false,
@@ -100,7 +114,7 @@ export async function organizationRepos(name: String) {
   return response.data;
 }
 
-export async function singleRepo(orgName: String, repoName: String) {
+export async function singleRepo(orgName: string, repoName: string) {
   if (!repoName || !orgName) {
     return NextResponse.json({
       success: false,
@@ -126,7 +140,7 @@ export async function singleRepo(orgName: String, repoName: String) {
   return response.data;
 }
 
-export async function singleRepoAllIssues(orgName: String, repoName: String) {
+export async function singleRepoAllIssues(orgName: string, repoName: string) {
   if (!repoName || !orgName) {
     return NextResponse.json({
       success: false,
