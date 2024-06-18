@@ -1,7 +1,7 @@
 import { cache, organizationRepos } from "@/app/services/functions";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, { params } : any) {
+export async function GET(req: NextRequest, { params }: any) {
   try {
     const { organizationName } = params;
 
