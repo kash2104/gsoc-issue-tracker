@@ -23,9 +23,14 @@ export default function OrgDetails() {
         const newResponse = await fetch(
           `https://api.github.com/users/${organizationName}`
         );
-        if (!response.ok || !newResponse.ok) {
+        if (!response.ok) {
           throw new Error("Network response was not ok");
         }
+
+        if (!newResponse.ok) {
+          throw new Error("Network new response was not ok");
+        }
+
         const data = await response.json();
         const newData = await newResponse.json();
         setOwnerDetails(data.repos[0].owner);
