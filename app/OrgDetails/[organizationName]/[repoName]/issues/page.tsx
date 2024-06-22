@@ -53,6 +53,9 @@ export default function IssueDetails() {
     issues.filter((issue) => issue.state === "open" && !issue.assignee).length /
       itemsPerPage
   );
+
+  const totalUnassignedIssues = issues.filter((issue) => issue.state === "open" && !issue.assignee).length;
+
   const currentIssues = issues
     .filter((issue) => issue.state === "open" && !issue.assignee)
     .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
@@ -79,7 +82,7 @@ export default function IssueDetails() {
       <div className="flex flex-col items-center justify-center w-full h-50 bg-blue-200 shadow-md p-6">
         <h1 className="text-4xl font-bold text-gray-800 mb-2">{repoName}</h1>
         <p className="text-lg text-gray-600">
-          Total Unassigned Issues: {issues.length}
+          Total Unassigned Issues: {totalUnassignedIssues}
         </p>
       </div>
 
@@ -210,7 +213,7 @@ export default function IssueDetails() {
         ))}
       </MDBRow>
 
-      <MDBPagination className="mb-4 flex items-center justify-center mt-8 cursor-pointer">
+      {currentIssues.length > 0 ? (<MDBPagination className="mb-4 flex items-center justify-center mt-8 cursor-pointer">
         <MDBPaginationItem disabled={currentPage === 1}>
           <MDBPaginationLink
             onClick={() => handlePageChange(currentPage - 1)}
@@ -239,7 +242,7 @@ export default function IssueDetails() {
             First Page
           </MDBPaginationLink>
         </MDBPaginationItem>
-      </MDBPagination>
+      </MDBPagination>) : <p className="text-center">No unassigned issues found.</p>}
     </div>
   );
 }
