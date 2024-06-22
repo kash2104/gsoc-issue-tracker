@@ -108,7 +108,7 @@ const Navbar = ({
       </div>
 
       {menuOpen && (
-        <div className="fixed left-0 top-0 h-[60%] w-full bg-gray-100 shadow-md p-6 flex flex-col justify-between md:hidden z-50 ">
+        <div className="fixed left-0 top-0 h-max w-full bg-gray-100 shadow-md p-6 flex flex-col justify-between md:hidden z-50 ">
           <div>
             <div className="text-xl font-bold text-blue-700 mb-4">
               GSOC Issue Tracker
