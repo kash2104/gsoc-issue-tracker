@@ -6,7 +6,7 @@ const OrgCard = ({ org }: any) => {
   const extractOrgNameFromUrl = (url: string) => {
 
     if(url === "https://home.unicode.org"){
-      return "unicode";
+      return "unicode-org";
     }
     else if(url === "https://mesa.readthedocs.io/en/latest/"){
       return "projectmesa";
@@ -16,6 +16,9 @@ const OrgCard = ({ org }: any) => {
     }
     else if (url === "https://github.com/ankidroid/Anki-Android"){
       return "ankidroid";
+    }
+    else if(url === "https://jenkins.io/"){
+      return "jenkinsci";
     }
     else {
       // Remove the protocol (http, https) and 'www' if present
