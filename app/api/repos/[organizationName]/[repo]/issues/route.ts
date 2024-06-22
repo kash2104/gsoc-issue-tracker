@@ -4,7 +4,6 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest, { params } : any) {
   try {
     const { organizationName, repo } = params;
-    console.log(params);
 
     if (!organizationName || !repo) {
       return NextResponse.json({
