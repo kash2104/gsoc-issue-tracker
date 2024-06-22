@@ -111,14 +111,14 @@ export default function Home() {
         setTechSearchQuery={setTechSearchQuery}
         techSet={new Set(organizationData.flatMap((org) => org.technologies))}
       />
-      <div className="flex-grow p-4 overflow-y-auto ml-[18%]">
+      <div className="flex-grow p-4 overflow-y-auto md:ml-[18%] mt-10">
         <h1 className="text-center my-4">{`All ${year} Organizations are listed below`}</h1>
 
         {!loading && (
           <p className="text-center mb-6">{`Total Organizations: ${filteredData.length}`}</p>
         )}
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {loading ? (
             <div className="grid col-span-3">
               <div className="flex flex-col items-center gap-2 justify-center">

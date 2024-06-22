@@ -53,7 +53,7 @@ const Banner = ({
           />
         </div>
       </div>
-      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 mb-2 text-2xl font-bold">
+      <div className="md:absolute bottom-0 left-1/2 transform md:-translate-x-1/2 mb-2 text-2xl font-bold">
         Issues found in {repos} repositories
       </div>
     </div>
